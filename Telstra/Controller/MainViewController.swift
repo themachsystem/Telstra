@@ -53,7 +53,7 @@ class MainViewController: UITableViewController {
         if descButton == nil {
             descButton = UIButton(type: .system)
             descButton!.tintColor = UIColor.darkText
-            descButton!.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+            descButton!.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             descButton!.titleLabel?.lineBreakMode = .byWordWrapping
             descButton!.contentHorizontalAlignment = .left
             descButton!.contentVerticalAlignment = .top
@@ -80,7 +80,7 @@ class MainViewController: UITableViewController {
                 titleLabel!.text = ""
             }
             if let desc = feed.desc {
-                let descHeight = desc.height(withConstrainedWidth: maxTextWidth, font: UIFont.systemFont(ofSize: 17))
+                let descHeight = desc.height(withConstrainedWidth: maxTextWidth, font: UIFont.systemFont(ofSize: 15))
                 descButton!.frame = CGRect(x: (titleLabel?.frame.origin.x)!, y: (titleLabel?.frame.maxY)! + 8.0,  width: maxTextWidth, height: descHeight)
                 descButton!.setTitle(desc, for: .normal)
             }
@@ -105,7 +105,7 @@ class MainViewController: UITableViewController {
                 textHeight += titleHeight
             }
             if let desc = feed.desc  {
-                let descHeight = desc.height(withConstrainedWidth: maxTextWidth, font: UIFont.systemFont(ofSize: 17))
+                let descHeight = desc.height(withConstrainedWidth: maxTextWidth, font: UIFont.systemFont(ofSize: 15))
                 textHeight += descHeight
             }
         }
