@@ -65,7 +65,6 @@ class MainViewController: UITableViewController {
         // create refresh control
         tableView.refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(downloadFeed), for: .valueChanged)
-        tableView.contentInset = UIEdgeInsets(top: 20.0, left: 0, bottom: 0, right: 0)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
 
