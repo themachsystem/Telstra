@@ -8,22 +8,6 @@
 
 import UIKit
 
-extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.height)
-    }
-    
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.width)
-    }
-}
-
 class AppManager: NSObject {
     // MARK: - Properties
     // MARK: Public
@@ -44,11 +28,12 @@ class AppManager: NSObject {
      * Downloads and parses JSON feed and calls a handler upon completion.
      */
     func downloadFeed(completionHandler: @escaping (_ success: Bool) -> Void) {
+        weak var weakSelf = self
         NetworkManager.shared.runDataTask(url: feedUrl) { response,error  in
             if let responseObject = response {
-                self.info = self.infoFromServerResponse(responseObject)
+                weakSelf!.info = weakSelf!.infoFromServerResponse(responseObject)
             }
-            completionHandler(self.info != nil)
+            completionHandler(weakSelf!.info != nil)
         }
     }
     
