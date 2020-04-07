@@ -27,13 +27,13 @@ class AppManager: NSObject {
     /**
      * Downloads and parses JSON feed and calls a handler upon completion.
      */
-    func downloadFeed(completionHandler: @escaping (_ success: Bool) -> Void) {
+    func downloadFeed(completionHandler: @escaping (_ success: Bool, _ error: String?) -> Void) {
         weak var weakSelf = self
         NetworkManager.shared.runDataTask(url: feedUrl) { response,error  in
             if let responseObject = response {
                 weakSelf!.info = weakSelf!.infoFromServerResponse(responseObject)
             }
-            completionHandler(weakSelf!.info != nil)
+            completionHandler(weakSelf!.info != nil, error)
         }
     }
     

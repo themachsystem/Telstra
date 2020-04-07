@@ -73,7 +73,7 @@ class MainViewController: UITableViewController {
         SVProgressHUD.show()
         
         weak var weakSelf = self
-        appManager.downloadFeed { success in
+        appManager.downloadFeed { success, error in
             DispatchQueue.main.async {
                 if success {
                     weakSelf!.navigationItem.title = weakSelf!.appManager.info?.title
@@ -81,7 +81,7 @@ class MainViewController: UITableViewController {
                     SVProgressHUD.dismiss()
                 }
                 else {
-                    SVProgressHUD.showError(withStatus: "Unable to download feed. Please make sure you have Internet connection and try again.")
+                    SVProgressHUD.showError(withStatus: error)
                 }
                 weakSelf!.tableView.refreshControl?.endRefreshing()
             }
