@@ -74,12 +74,17 @@ class MainViewController: UITableViewController {
         
         weak var weakSelf = self
         appManager.downloadFeed { success in
-            if success {
-                weakSelf!.navigationItem.title = weakSelf!.appManager.info?.title
-                weakSelf!.tableView.reloadData()
+            DispatchQueue.main.async {
+                if success {
+                    weakSelf!.navigationItem.title = weakSelf!.appManager.info?.title
+                    weakSelf!.tableView.reloadData()
+                    SVProgressHUD.dismiss()
+                }
+                else {
+                    SVProgressHUD.showError(withStatus: "Unable to download feed. Please make sure you have Internet connection and try again.")
+                }
+                weakSelf!.tableView.refreshControl?.endRefreshing()
             }
-            SVProgressHUD.dismiss()
-            weakSelf!.tableView.refreshControl?.endRefreshing()
         }
     }
     
